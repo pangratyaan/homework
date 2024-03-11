@@ -52,7 +52,7 @@ const substring = "ar";
 const occurrences = countSubstringOccurrences(string, substring);
 console.log(occurrences);
 
-("3. Given a string, compute recursively (no loops) a new string where all appearances of pi have been replaced by 3.14");
+("4. Given a string, compute recursively (no loops) a new string where all appearances of pi have been replaced by 3.14");
 function replacePi(str) {
   if (!str.includes("pi")) {
     return str;
