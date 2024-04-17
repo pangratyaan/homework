@@ -1,39 +1,32 @@
-let currentSlide = 0;
-const slides = document.querySelectorAll(".carousel-item");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const startBtn = document.getElementById("startBtn");
-const stopBtn = document.getElementById("stopBtn");
-let intervalId = null;
-
-function showSlide(n) {
-  slides.forEach((slide) => {
-    slide.style.display = "none";
-  });
-  slides[n].style.display = "block";
+const inputBox = document.getElementById("input-box")
+const listContainer = document.getElementById("list-container")
+function addTask(){
+    if (inputBox.value === '') {
+        alert("You must write something")
+    } else{
+        let li = document.createElement("li")
+        li.innerHTML = inputBox.value
+        listContainer.appendChild(li)
+        let span = document.createElement("span")
+        span.innerHTML = "\u00d7"
+        li.appendChild(span)
+    }
+    inputBox.value = ""
 }
 
-function nextSlide() {
-  currentSlide = (currentSlide + 1) % slides.length;
-  showSlide(currentSlide);
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        addTask();
+    }
 }
 
-function prevSlide() {
-  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-  showSlide(currentSlide);
-}
+inputBox.addEventListener("keypress", handleKeyPress);
 
-function startAutoplay() {
-  intervalId = setInterval(nextSlide, 2000); 
-}
+listContainer.addEventListener("click", function(e){
+    if(e.target.tagName === "LI"){
+        e.target.classList.toggle("checked")
+    }else if(e.target.tagName === "SPAN"){
+        e.target.parentElement.remove()
+    }
+}, false)
 
-function stopAutoplay() {
-  clearInterval(intervalId);
-}
-
-prevBtn.addEventListener("click", prevSlide);
-nextBtn.addEventListener("click", nextSlide);
-startBtn.addEventListener("click", startAutoplay);
-stopBtn.addEventListener("click", stopAutoplay);
-
-showSlide(currentSlide);
